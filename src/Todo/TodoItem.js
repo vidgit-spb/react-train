@@ -16,12 +16,13 @@ const styles = {
     }
 }
 
-export default function TodoItem({todo,index}){
+export default function TodoItem({todo,index, onChange}){
+    console.log('todo',todo);
     return (
         <li style ={styles.li}>
             <span>
                 
-                <input type = "checkbox" styles = {styles.input} onChange={()=>console.log(todo.id)} /> 
+                <input type = "checkbox" styles = {styles.input} onChange={() => onChange(todo.id)} /> 
                 <strong>{index + 1} </strong>
                 &nbsp;
                 {todo.title}
