@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import Context from '../context'
 
 
-const styles = {
+const styles = { 
     li:{
         display:'flex',
         justifyContent:'space-between',
@@ -17,17 +18,25 @@ const styles = {
 }
 
 export default function TodoItem({todo,index, onChange}){
-    console.log('todo',todo);
+
+    const {removeTodo} = useContext(Context);
+    const classes = [];
+    if(todo.completed){
+        classes.push('done');
+    }
     return (
         <li style ={styles.li}>
-            <span>
+            <span className = {classes.join(' ')}>
                 
-                <input type = "checkbox" styles = {styles.input} onChange={() => onChange(todo.id)} /> 
+                <input type = "checkbox"
+                 styles = {styles.input} 
+                 onChange={() => onChange(todo.id)}
+                 checked ={todo.completed}/> 
                 <strong>{index + 1} </strong>
                 &nbsp;
                 {todo.title}
             </span>
-            <button className = 'rm'> &times; </button>
+            <button className = 'rm' onClick = {removeTodo.bind(null,todo.id)}> &times; </button>
          </li>
     )
 }
